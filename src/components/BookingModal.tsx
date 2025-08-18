@@ -30,31 +30,57 @@ export const BookingModal = ({ isOpen, onClose, selectedCourse }: BookingModalPr
     course: selectedCourse || "",
   });
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // For now, just show a success message
-    // TODO: Implement email sending when Supabase is connected
-    toast({
-      title: "Booking Request Submitted!",
-      description: "We'll contact you soon to confirm your enrollment.",
-      duration: 5000,
-    });
-    
-    // Reset form and close modal
-    setFormData({
-      fullName: "",
-      phoneNumber: "",
-      location: "",
-      email: "",
-      course: "",
-    });
-    onClose();
+    setLoading(true);
+
+    try {
+      const res = await fetch("/.netlify/functions/sendemail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        toast({
+          title: "Booking Request Submitted!",
+          description: "We'll contact you soon to confirm your enrollment.",
+          duration: 5000,
+        });
+
+        setFormData({
+          fullName: "",
+          phoneNumber: "",
+          location: "",
+          email: "",
+          course: "",
+        });
+        onClose();
+      } else {
+        toast({
+          title: "Error",
+          description: "Something went wrong. Please try again later.",
+          duration: 5000,
+        });
+      }
+    } catch (err) {
+      console.error("Booking error:", err);
+      toast({
+        title: "Error",
+        description: "Unable to send booking. Please try again later.",
+        duration: 5000,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -65,7 +91,7 @@ export const BookingModal = ({ isOpen, onClose, selectedCourse }: BookingModalPr
             Book Your Class
           </DialogTitle>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6 mt-6">
           <div className="space-y-2">
             <Label htmlFor="fullName" className="text-foreground font-medium">
@@ -151,8 +177,8 @@ export const BookingModal = ({ isOpen, onClose, selectedCourse }: BookingModalPr
             >
               Cancel
             </Button>
-            <Button type="submit" className="flex-1 btn-hero">
-              Submit Booking
+            <Button type="submit" className="flex-1 btn-hero" disabled={loading}>
+              {loading ? "Submitting..." : "Submit Booking"}
             </Button>
           </div>
         </form>
