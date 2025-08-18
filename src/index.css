@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 220 30% 5%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 30% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 30% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 195 100% 50%;
+    --primary-foreground: 220 30% 5%;
+
+    --secondary: 240 30% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 240 30% 12%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 280 100% 70%;
+    --accent-foreground: 220 30% 5%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 30% 18%;
+    --input: 240 30% 15%;
+    --ring: 195 100% 50%;
+
+    /* AI-inspired custom colors */
+    --electric-blue: 195 100% 50%;
+    --cyber-purple: 280 100% 70%;
+    --neural-teal: 175 85% 45%;
+    --quantum-violet: 265 85% 60%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(195 100% 50%), hsl(280 100% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 30% 8%), hsl(240 30% 15%));
+    --gradient-accent: linear-gradient(135deg, hsl(175 85% 45%), hsl(195 100% 50%));
+    
+    /* Glowing effects */
+    --glow-primary: 0 0 30px hsl(195 100% 50% / 0.3);
+    --glow-accent: 0 0 30px hsl(280 100% 70% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  /* Futuristic button variants */
+  .btn-hero {
+    @apply relative px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold rounded-lg;
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-[var(--glow-primary)];
+    @apply before:absolute before:inset-0 before:rounded-lg before:p-[1px] before:bg-gradient-to-r before:from-primary before:to-accent before:-z-10;
+  }
+  
+  .btn-course {
+    @apply relative px-6 py-3 bg-secondary text-secondary-foreground font-medium rounded-lg border border-border;
+    @apply transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:border-primary;
+    @apply hover:shadow-[var(--glow-primary)] hover:scale-105;
+  }
+  
+  /* Futuristic card styles */
+  .card-futuristic {
+    @apply relative p-6 bg-gradient-to-br from-card to-secondary rounded-xl border border-border;
+    @apply backdrop-blur-sm transition-all duration-300 hover:scale-105;
+    @apply hover:shadow-[var(--glow-primary)] hover:border-primary/50;
+    @apply before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-primary/10 before:to-accent/10 before:opacity-0 before:transition-opacity before:duration-300;
+    @apply hover:before:opacity-100;
+  }
+  
+  /* Animated text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
+    background-size: 200% 100%;
+    animation: gradient-shift 3s ease-in-out infinite;
+  }
+  
+  /* Neural network animation background */
+  .neural-bg {
+    background: 
+      radial-gradient(circle at 20% 20%, hsl(195 100% 50% / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(280 100% 70% / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 70%, hsl(175 85% 45% / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 90% 90%, hsl(265 85% 60% / 0.1) 0%, transparent 50%);
+  }
+  
+  /* Floating animation */
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Pulse glow effect */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px hsl(195 100% 50% / 0.3); }
+  50% { box-shadow: 0 0 30px hsl(195 100% 50% / 0.6), 0 0 40px hsl(280 100% 70% / 0.3); }
+}
