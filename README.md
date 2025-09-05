@@ -1,6 +1,6 @@
-shermack ai lab
 
-## Project info
+
+## shermack ai lab
 
 
 ## How can I edit this code?
